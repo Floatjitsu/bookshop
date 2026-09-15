@@ -13,8 +13,8 @@
     "@cap-js/sqlite": ">=2.1.1"
   },
   "dependencies": {
-    "@cap-js/agents": "^0.9.3",
-    "@cap-js/mcp": "^0.9.3",
+    "@cap-js/agents": "*",
+    "@cap-js/mcp": "*",
     "@sap/cds": ">=9.6.2"
   },
   "scripts": {
