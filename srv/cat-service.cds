@@ -5,13 +5,12 @@ service CatalogService @(path:'browse') {
   /** For displaying lists of Books */
   @readonly entity ListOfBooks as projection on Books {
     *, currency.symbol as currency,
-  }
-  excluding { descr };
+  } excluding { descr };
 
   /** For display in details pages */
-  @readonly entity Books as projection on my.Books { 
+  @readonly entity Books as projection on my.Books {
     *, // all fields with the following denormalizations:
-    author.name as author, 
+    author.name as author,
     genre.name as genre,
   } excluding { createdBy, modifiedBy };
 
@@ -21,3 +20,10 @@ service CatalogService @(path:'browse') {
 
 // Serve via OData, HCQL and REST
 annotate CatalogService with @odata @hcql @rest;
+
+// Serve via MCP - requires: npm add @cap-js/mcp
+annotate CatalogService with @mcp;
+
+// Serve as custom agent via A2A - requires: npm add @cap-js/agents
+annotate CatalogService with @agent;
+annotate CatalogService.submitOrder with @agent.hitl;
