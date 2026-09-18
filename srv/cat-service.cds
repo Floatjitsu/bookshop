@@ -5,8 +5,7 @@ service CatalogService @(path:'browse') {
   /** For displaying lists of Books */
   @readonly entity ListOfBooks as projection on Books {
     *, currency.symbol as currency,
-  }
-  excluding { descr };
+  } excluding { descr };
 
   /** For display in details pages */
   @readonly entity Books as projection on my.Books {
@@ -25,6 +24,6 @@ annotate CatalogService with @odata @hcql @rest;
 // Serve via MCP
 annotate CatalogService with @mcp;
 
-// Serve as agent via A2A
+// Serve as custom agent via A2A
 annotate CatalogService with @agent;
 annotate CatalogService.submitOrder with @agent.hitl;

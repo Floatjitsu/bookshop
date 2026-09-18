@@ -27,3 +27,7 @@ annotate BookshopService.Authors with {
   name  /** The name of the author. */;
   books /** All the books written by the author. */;
 }
+
+
+// Reuse catalog service impl for submitOrder
+annotate BookshopService with @impl: './cat-service';
