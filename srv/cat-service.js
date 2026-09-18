@@ -18,7 +18,7 @@ class CatalogService extends cds.ApplicationService { init() {
       .with `stock = stock - ${quantity}`
       .where `stock >= ${quantity}`
     if (affected) return //> update was successful, so we are done
-    else if (!cds.db.exists(Books,id)) req.error (404, `Book #${id} doesn't exist`)
+    if (!await SELECT.one(1).from(Books,id)) req.error (404, `Book #${id} doesn't exist`)
     else req.error (409, `${quantity} exceeds stock for book #${id}`)
   })
 
