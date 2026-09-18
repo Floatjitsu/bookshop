@@ -21,9 +21,9 @@ service CatalogService @(path:'browse') {
 // Serve via OData, HCQL and REST
 annotate CatalogService with @odata @hcql @rest;
 
-// Serve via MCP
+// Serve via MCP - requires: npm add @cap-js/mcp
 annotate CatalogService with @mcp;
 
-// Serve as custom agent via A2A
+// Serve as custom agent via A2A - requires: npm add @cap-js/agents
 annotate CatalogService with @agent;
 annotate CatalogService.submitOrder with @agent.hitl;
