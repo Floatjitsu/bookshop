@@ -26,11 +26,6 @@ POST http://localhost:4004/odata/v4/browse/submitOrder
 Content-Type: application/json
 Authorization: Basic bob:
 
-### CatalogService.submitOrder(/201
-POST http://localhost:4004/odata/v4/browse/submitOrder
-Content-Type: application/json
-Authorization: Basic bob:
-
 {
   "book": 201,
   "quantity": 3
