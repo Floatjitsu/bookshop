@@ -8,3 +8,6 @@ service AdminService @(odata:'/admin') {
 
 // Additionally serve via HCQL and REST
 annotate AdminService with @hcql @rest;
+
+// Serve via MCP - requires: npm add @cap-js/mcp
+annotate AdminService with @mcp;
