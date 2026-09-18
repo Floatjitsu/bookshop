@@ -21,3 +21,10 @@ service CatalogService @(path:'browse') {
 
 // Serve via OData, HCQL and REST
 annotate CatalogService with @odata @hcql @rest;
+
+// Serve via MCP
+annotate CatalogService with @mcp;
+
+// Serve as agent via A2A
+annotate CatalogService with @agent;
+annotate CatalogService.submitOrder with @agent.hitl;
