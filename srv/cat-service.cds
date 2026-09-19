@@ -15,11 +15,14 @@ service CatalogService @(path:'browse') {
   } excluding { createdBy, modifiedBy };
 
   @requires: 'authenticated-user'
-  action submitOrder ( book: Books:ID, quantity: Integer );
+  action submitOrder (
+    book     : Books:ID @mandatory,
+    quantity : Integer default 1 @assert.range: [1,_]
+  );
 }
 
-// Serve via OData, HCQL and REST
-annotate CatalogService with @odata @hcql @rest;
+// Serve via HCQL, OData, and REST
+annotate CatalogService with @hcql @odata @rest;
 
 // Serve via MCP - requires: npm add @cap-js/mcp
 annotate CatalogService with @mcp;

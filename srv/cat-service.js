@@ -12,14 +12,18 @@ class CatalogService extends cds.ApplicationService { init() {
 
   // Reduce stock of ordered books if available stock suffices
   this.on ('submitOrder', async req => {
-    let { book:id, quantity } = req.data
-    if (quantity < 1) return req.error (400, `quantity has to be 1 or more`)
-    let {affected} = await UPDATE (Books,id)
+
+    // Try to reduce the stock of the ordered book, the good case
+    let { book:id, quantity=1 } = req.data
+    let { affected } = await UPDATE (Books,id)
       .with `stock = stock - ${quantity}`
       .where `stock >= ${quantity}`
-    if (affected) return //> update was successful, so we are done
-    if (!await SELECT.one(1).from(Books,id)) req.error (404, `Book #${id} doesn't exist`)
-    else req.error (409, `${quantity} exceeds stock for book #${id}`)
+    if (affected) return //> done, the update was successful
+
+    // The update failed, let's check why, and respond accordingly...
+    let exists = await SELECT.one`stock`.from(Books,id)
+    if (!exists) req.error (404, `Book #${id} doesn't exist`)
+    else req.error (409, `${quantity} exceeds stock for book #${id}`, { id, quantity, ...exists })
   })
 
   // Delegate requests to the underlying generic service
