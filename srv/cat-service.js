@@ -17,7 +17,7 @@ class CatalogService extends cds.ApplicationService { init() {
     let { book:id, quantity=1 } = req.data
     let { affected } = await UPDATE (Books,id)
       .with `stock = stock - ${quantity}`
-      .where `stock >= ${quantity}`
+      .where `stock > ${quantity}`
     if (affected) return //> done, the update was successful
 
     // The update failed, let's check why, and respond accordingly...
