@@ -17,7 +17,8 @@ service CatalogService @(path:'browse') {
   @requires: 'authenticated-user'
   action submitOrder (
     book     : Books:ID @mandatory,
-    quantity : Integer default 1 @assert.range: [1,_]
+    // Cap orders at 111 units per transaction to prevent overstocking
+    quantity : Integer default 1 @assert.range: [_,111]
   );
 }
 
